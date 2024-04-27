@@ -12,7 +12,7 @@
       neighbor fabric peer-group
       neighbor fabric remote-as 65000
       neighbor fabric capability extended-nexthop
-      neighbor fabric update-source "{ {ansible_host }}"
+      neighbor fabric update-source "{{ ansible_host }}"
       bgp listen range "{{ frr_bgp_listen_range }}" peer-group fabric
       !
       address-family l2vpn evpn
