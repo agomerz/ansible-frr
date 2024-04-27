@@ -20,6 +20,6 @@
        neighbor fabric route-reflector-client
       exit-address-family
       !
-    !
+      !
   roles:
     - frr
