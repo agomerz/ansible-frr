@@ -1,0 +1,22 @@
+---
+- name: Configure FRR Daemons
+  ansible.builtin.template:
+    src: etc/frr/daemons.j2
+    dest: /etc/frr/daemons
+    mode: 0640
+    owner: frr
+    group: frr
+  notify:
+    - Restart FRR
+
+- name: Configure FRR
+  ansible.builtin.template:
+    src: etc/frr/frr.conf.j2
+    dest: /etc/frr/frr.conf
+    owner: frr
+    group: frr
+    mode: 0640
+  notify:
+    - Restart FRR
+
+

@@ -1,0 +1,25 @@
+---
+- hosts: frr
+  gather_facts: yes
+  vars:
+    frr_bgp_listen_range: 10.55.20.0/24
+    frr_config: |
+      router bgp 65000
+      bgp router-id "{{ ansible_host }}"
+      bgp cluster-id "{{ ansible_host }}"
+      bgp log-neighbor-changes
+      no bgp default ipv4-unicast
+      neighbor fabric peer-group
+      neighbor fabric remote-as 65000
+      neighbor fabric capability extended-nexthop
+      neighbor fabric update-source "{ {ansible_host }}"
+      bgp listen range "{{ frr_bgp_listen_range }}" peer-group fabric
+      !
+      address-family l2vpn evpn
+       neighbor fabric activate
+       neighbor fabric route-reflector-client
+      exit-address-family
+      !
+    !
+  roles:
+    - frr
